@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ImageModelStoreContainer" CdmEntityContainer="ImageEntities">
+    <EntitySetMapping Name="ActualLabels">
+      <EntityTypeMapping TypeName="ImageModel.ActualLabel">
+        <MappingFragment StoreEntitySet="ActualLabel">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="actual_label_name" ColumnName="actual_label_name" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImageInfoes">
+      <EntityTypeMapping TypeName="ImageModel.ImageInfo">
+        <MappingFragment StoreEntitySet="ImageInfo">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="image_id" ColumnName="image_id" />
+          <ScalarProperty Name="image_link" ColumnName="image_link" />
+          <ScalarProperty Name="predict_label" ColumnName="predict_label" />
+          <ScalarProperty Name="actual_label_id" ColumnName="actual_label_id" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

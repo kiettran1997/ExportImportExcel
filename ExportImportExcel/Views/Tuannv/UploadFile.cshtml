@@ -1,0 +1,34 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "UploadFile";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UploadFile</title>
+</head>
+<body>
+<div>
+    <h2>UploadFile</h2>  
+   
+    @using(Html.BeginForm(@"UploadFile",@"Tuannv", FormMethod.Post, new { enctype="multipart/form-data"}))  
+    {  
+      
+        <div>  
+            @Html.TextBox("file", "", new {  type= "file"}) <br />  
+   
+            <input type="submit" value="Upload" />  
+   
+            @ViewBag.Message  
+   
+        </div>  
+      
+      
+    } 
+</div>
+</body>
+</html>

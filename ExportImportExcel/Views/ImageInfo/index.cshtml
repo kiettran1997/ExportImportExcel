@@ -1,0 +1,152 @@
+﻿
+@model  dynamic
+
+@{
+    Layout = null;
+}
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+    <fieldset>
+
+        <div>
+            @using (Html.BeginForm("ExportToExcel", "ImageInfo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                <div>
+                    <input type="submit" value="Export" class="btn btn-primary" />
+                </div>
+
+            }
+        </div>
+
+        <div>
+
+            @using (Html.BeginForm("ImportFromExcel", "ImageInfo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.ValidationSummary();
+                <input type="file" name="postedFile" />
+                <div>
+                    <input type="submit" button id="upload" value="Import" class="btn btn-success" />
+                </div>
+            }
+        </div>
+
+
+
+        <div class="container-fluid">
+            
+            <div class="card text-center">
+                <div class="card-header">
+                    <ul class="nav nav-pills card-header-pills">
+                        <li class="nav-item">
+                            <button class="btn btn-danger">action</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-danger">action</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-danger">action</button>
+                        </li>
+                    </ul>
+
+
+                </div>
+                <div class="card-body">
+                    <table class="col-12 table table-dark table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Image Id</th>
+                            <th scope="col">URL</th>
+                            <th scope="col">Predict Label</th>
+                            <th scope="col">Actual Label</th>
+
+                        </tr>
+                        </thead>
+                        @foreach (var item in Model)
+                        {
+                            <tbody>
+                            <tr>
+                                <td>@item.id</td>
+                                <td>@item.image_id</td>
+                                <td><img src="@item.image_link" style="width: 50px; height: 50px"/></td>
+                                <td>@item.predict_label</td>
+                                <td>
+                                    @Html.DropDownList("Actual Label", (IEnumerable<SelectListItem>) ViewBag.CategoryList, new {@class = "form-control"})
+                                </td>
+
+
+                                @*<td>
+                                    @Html.ActionLink("Create New", "Create")
+                                    @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+                                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+                                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+                                </td>*@
+                            </tr>
+                            </tbody>
+                        }
+
+                    </table>
+                </div>
+            </div>
+
+            
+
+        </div>
+
+
+
+    </fieldset>
+
+
+    @section scripts{
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+        <script>
+
+            $("#upload").click(function () {
+                debugger;
+                if (window.FormData == undefined)
+                    alert("Error: FormData is undefined");
+
+                else {
+                    var fileUpload = $("#postedFile").get(0);
+                    var files = fileUpload.files;
+
+                    var fileData = new FormData();
+
+                    fileData.append(files[0].name, files[0]);
+
+                    $.ajax({
+                        url: '/ImageInfoes/ImportFromExcel',
+                        type: 'post',
+                        datatype: 'json',
+                        contentType: false,
+                        processData: false,
+                        async: false,
+                        data: fileData,
+                        success: function (response) {
+                            alert(response);
+                        }
+                    });
+                }
+
+            });
+        </script>
+
+    }
+
+</body>
+</html>

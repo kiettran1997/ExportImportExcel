@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ImageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ActualLabel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="actual_label_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+    <Property Name="deleted_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="ImageInfo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="image_id" Type="Int32" />
+    <Property Name="image_link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="predict_label" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="actual_label_id" Type="Int32" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+    <Property Name="deleted_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="ImageEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ActualLabels" EntityType="Self.ActualLabel" />
+    <EntitySet Name="ImageInfoes" EntityType="Self.ImageInfo" />
+  </EntityContainer>
+</Schema>
