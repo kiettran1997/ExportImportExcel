@@ -34,17 +34,17 @@ namespace ExportImportExcel.Controllers
                 // join voi db.ActualLabels 
                 // dieu kien join image.actual_label_id equals actual.id 
                 var images = (from image in db.ImageInfoes
-                    join  actual in db.ActualLabels on image.actual_label_id equals actual.id into  gj
-                    from subpet in gj.DefaultIfEmpty()
-                    select new
-                    {
-                        image.id,
-                        image.image_id,
-                        image.image_link,
-                        image.predict_label,
-                        image.actual_label_id,
-                        subpet.actual_label_name
-                    }).ToList();
+                              join actual in db.ActualLabels on image.actual_label_id equals actual.id into gj
+                              from subpet in gj.DefaultIfEmpty()
+                              select new
+                              {
+                                  image.id,
+                                  image.image_id,
+                                  image.image_link,
+                                  image.predict_label,
+                                  image.actual_label_id,
+                                  subpet.actual_label_name
+                              }).ToList();
 
                 foreach (var image in images)
                 {
@@ -53,36 +53,20 @@ namespace ExportImportExcel.Controllers
                     img.image_id = image.image_id;
                     img.image_link = image.image_link;
                     img.predict_label = image.predict_label;
-                    img.actual_label_id = image.actual_label_id;;
+                    img.actual_label_id = image.actual_label_id; ;
                     img.actual_label_name = image.actual_label_name;
-                    
 
+                    //model.As = true;
                     model.Add(img);
                 }
 
-                
-                /*lay danh sach list ActualLabel
-                 */
-                //var actualLabelList = (from actual in db.ActualLabels
-                //                       select new
-                //                       {
-                //                           actual.id,
-                //                           actual.actual_label_name
-                //                       }).ToList();
-                //foreach (var labe in actualLabelList)
-                //{
-                //    dynamic actualLabel = new ExpandoObject();
-                //    actualLabel.id = labe.id;
-                //    actualLabel.actual_label_name = labe.actual_label_name;
-                //    cateList.Add(actualLabel);
-                //    return View(cateList);
-                //}
-                //ViewData["allData"] = images;
-                //ViewData["actualLabelList"] = actualLabelList;
+
                 return View(model);
             }
 
         }
+
+
 
         [HttpPost]
         public FileResult ExportToExcel()
@@ -112,16 +96,21 @@ namespace ExportImportExcel.Controllers
         }
 
         [HttpPost]
+        public ActionResult Save(ImageInfo model)
+        {
+            return View();
+
+        }
+
+        [HttpPost]
         public ActionResult ImportFromExcel(HttpPostedFileBase postedFile)
         {
-            
+
             if (Request != null)
             {
                 HttpPostedFileBase file = Request.Files["postedFile"];
                 if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
                 {
-                    string fileName = file.FileName;
-                    string fileContentType = file.ContentType;
                     byte[] fileBytes = new byte[file.ContentLength];
                     var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
                     ExcelPackage.LicenseContext = LicenseContext.Commercial;
@@ -154,18 +143,18 @@ namespace ExportImportExcel.Controllers
                                             predict_label = PredictLabel
                                         };
                                         usersList.Add(pictureInformation);
-                                    } 
+                                    }
                                 }
 
                                 imageContext.ImageInfoes.AddRange(usersList);
                                 imageContext.SaveChanges();
                                 var imageInfos = db.ImageInfoes.ToList();
                                 return View("imageInfos");
-                            }    
-                            
-                            
+                            }
+
+
                         }
-                       
+
                     }
                 }
             }

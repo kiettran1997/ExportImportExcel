@@ -29,6 +29,7 @@
             }
         </div>
 
+
         <div>
 
             @using (Html.BeginForm("ImportFromExcel", "ImageInfo", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -41,68 +42,60 @@
             }
         </div>
 
+        <div>
+            @using (Html.BeginForm("Save", "ImageInfo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                <div>
+                    <input type="submit" value="Save" class="btn btn-success" />
+                    <div class="container-fluid">
+
+                        @Html.DropDownList("Actual Label", (IEnumerable<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control" })
+
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <table class="col-12 table table-dark table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Image Id</th>
+                                            <th scope="col">URL</th>
+                                            <th scope="col">Predict Label</th>
+                                            <th scope="col">Actual Label</th>
+
+                                        </tr>
+                                    </thead>
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td>@Html.CheckBox("item.id")</td>
+                                                <td>@item.image_id</td>
+                                                <td><img src="@item.image_link" style="width: 50px; height: 50px" /></td>
+                                                <td>@item.predict_label</td>
+                                                <td>
+                                                    @item.actual_label_name
+                                                </td>
 
 
-        <div class="container-fluid">
-            
-            <div class="card text-center">
-                <div class="card-header">
-                    <ul class="nav nav-pills card-header-pills">
-                        <li class="nav-item">
-                            <button class="btn btn-danger">action</button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="btn btn-danger">action</button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="btn btn-danger">action</button>
-                        </li>
-                    </ul>
+                                            </tr>
+                                        </tbody>
+                                    }
+
+                                </table>
+
+                            </div>
+                        </div>
 
 
+
+                    </div>
                 </div>
-                <div class="card-body">
-                    <table class="col-12 table table-dark table-bordered">
-                        <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Image Id</th>
-                            <th scope="col">URL</th>
-                            <th scope="col">Predict Label</th>
-                            <th scope="col">Actual Label</th>
 
-                        </tr>
-                        </thead>
-                        @foreach (var item in Model)
-                        {
-                            <tbody>
-                            <tr>
-                                <td>@item.id</td>
-                                <td>@item.image_id</td>
-                                <td><img src="@item.image_link" style="width: 50px; height: 50px"/></td>
-                                <td>@item.predict_label</td>
-                                <td>
-                                    @Html.DropDownList("Actual Label", (IEnumerable<SelectListItem>) ViewBag.CategoryList, new {@class = "form-control"})
-                                </td>
-
-
-                                @*<td>
-                                    @Html.ActionLink("Create New", "Create")
-                                    @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
-                                </td>*@
-                            </tr>
-                            </tbody>
-                        }
-
-                    </table>
-                </div>
-            </div>
-
-            
-
+            }
         </div>
+
 
 
 
