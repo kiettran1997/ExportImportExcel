@@ -9,21 +9,20 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DocumentFormat.OpenXml.Drawing.Charts;
 using DataTable = System.Data.DataTable;
 
 namespace ExportImportExcel.Controllers
 {
     public class ImageInfoController : Controller
     {
-        ImageEntities1 db = new ImageEntities1();
+        ImageEntities2 db = new ImageEntities2();
         //public int Department { get; set; }
         //public IEnumerable<ActualLabel> Departments { get; set; }
         // GET: ImageInfo
         public ActionResult Index()
         {
 
-            using (db = new ImageEntities1())
+            using (db = new ImageEntities2())
             {
                 dynamic model = new List<ExpandoObject>();
                 List<ActualLabel> cate = db.ActualLabels.ToList();
@@ -59,7 +58,8 @@ namespace ExportImportExcel.Controllers
                     //model.As = true;
                     model.Add(img);
                 }
-
+                //return json data
+                //return Json(model, JsonRequestBehavior.AllowGet);
 
                 return View(model);
             }
@@ -119,7 +119,7 @@ namespace ExportImportExcel.Controllers
                         var currentSheet = package.Workbook.Worksheets;
                         var workSheet = currentSheet.First(); if (workSheet != null)
                         {
-                            using (var imageContext = new ImageEntities1())
+                            using (var imageContext = new ImageEntities2())
                             {
                                 var usersList = new List<ImageInfo>();
 

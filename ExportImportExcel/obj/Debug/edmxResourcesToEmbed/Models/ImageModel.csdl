@@ -23,7 +23,7 @@
     <Property Name="updated_at" Type="DateTime" Precision="3" />
     <Property Name="deleted_at" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityContainer Name="ImageEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="ImageEntities2" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ActualLabels" EntityType="Self.ActualLabel" />
     <EntitySet Name="ImageInfoes" EntityType="Self.ImageInfo" />
   </EntityContainer>

@@ -25,6 +25,11 @@ namespace ExportImportExcel
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                "~/Scripts/jquery-1.10.2.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                "~/Scripts/jquery.dataTables.js"));
         }
     }
 }

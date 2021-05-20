@@ -7,16 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ExportImportExcel.Models
+namespace ExportImportExcel
 {
+    using ExportImportExcel.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ImageEntities1 : DbContext
+    public partial class ImageEntities2 : DbContext
     {
-        public ImageEntities1()
-            : base("name=ImageEntities1")
+        public ImageEntities2()
+            : base("name=ImageEntities2")
         {
         }
     
